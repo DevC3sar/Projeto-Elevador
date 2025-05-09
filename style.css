@@ -1,0 +1,246 @@
+body {
+    display: flex;
+    flex-direction: column; /* Allow menu and simulation to stack */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.menu-container {
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.menu-container h1 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.menu-container button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.menu-container button:hover {
+    background-color: #0056b3;
+}
+
+.menu-container button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.elevator-simulation-container {
+    display: flex; /* Will be set to flex by JS */
+    gap: 30px;
+    align-items: flex-start; /* Align building and controls at the top */
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    max-width: 900px; /* Limit width for better layout */
+    width: 100%;
+}
+
+.building {
+    width: 150px;
+    height: 440px; /* 4 floors * 100px + 10px padding/margin per floor approx */
+    background-color: #d4d4d4;
+    border: 2px solid #555;
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse; /* Floors stack from bottom up */
+}
+
+.floor {
+    height: 100px;
+    border-bottom: 1px dashed #888;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.floor:last-child {
+    border-bottom: none;
+}
+
+.floor span {
+    background-color: rgba(255,255,255,0.7);
+    padding: 5px 8px;
+    border-radius: 4px;
+}
+
+.elevator-shaft {
+    width: 100px;
+    height: 400px; /* 4 floors * 100px */
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #bababa;
+}
+
+.elevator-car {
+    width: 80px;
+    height: 100px; /* Height of one floor */
+    background-color: #f0ad4e; /* Elevator color */
+    border: 2px solid #eea236;
+    position: absolute;
+    bottom: 0; /* Starts at ground floor (T) */
+    left: 10px; /* Centered in shaft */
+    transition: bottom 1s ease-in-out; /* Animation for movement */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Indicator at top */
+    box-sizing: border-box;
+    overflow: hidden; /* Hide doors when they slide out */
+}
+
+#elevator-floor-indicator {
+    background-color: #333;
+    color: white;
+    padding: 3px 8px;
+    font-size: 14px;
+    border-radius: 3px;
+    margin-top: 5px;
+    z-index: 2;
+}
+
+.elevator-door {
+    width: 50%;
+    height: 100%;
+    background-color: #e09a36; /* Slightly darker than car */
+    position: absolute;
+    top: 0;
+    transition: transform 0.5s ease-in-out; /* Door animation */
+    z-index: 1;
+}
+
+.left-door {
+    left: 0;
+    border-right: 1px solid #ca882a;
+}
+
+.right-door {
+    right: 0;
+    border-left: 1px solid #ca882a;
+}
+
+.doors-open .left-door {
+    transform: translateX(-100%);
+}
+
+.doors-open .right-door {
+    transform: translateX(100%);
+}
+
+.controls {
+    flex-grow: 1; /* Allow controls to take remaining space */
+    padding: 15px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.controls h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.floor-buttons-panel {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.floor-btn {
+    padding: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #5bc0de;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.floor-btn:hover {
+    background-color: #31b0d5;
+}
+
+.status-display p {
+    background-color: #f8f9fa;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    border: 1px solid #dee2e6;
+}
+
+.status-display span {
+    font-weight: bold;
+    color: #007bff;
+}
+
+#afd-visualizer-container {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+}
+
+#afd-visualizer h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
+
+#afd-visualizer ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#afd-visualizer .afd-state-item {
+    padding: 6px 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#afd-visualizer .afd-state-item.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #0056b3;
+    font-weight: bold;
+}
+

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Elevador AFD</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="menu-container">
+        <h1>Simulador AFD</h1>
+        <p>Selecione o case para simular:</p>
+        <button id="case1-btn" disabled>Case 1: Máquina de Doces (Não implementado)</button>
+        <button id="case2-btn">Case 2: Elevador</button>
+    </div>
+
+    <div class="elevator-simulation-container" style="display:none;">
+        <div class="building">
+            <div id="floor-3" class="floor" data-floor="3"><span>3º Andar</span></div>
+            <div id="floor-2" class="floor" data-floor="2"><span>2º Andar</span></div>
+            <div id="floor-1" class="floor" data-floor="1"><span>1º Andar</span></div>
+            <div id="floor-0" class="floor" data-floor="0"><span>Térreo</span></div>
+            
+            <div class="elevator-shaft">
+                <div class="elevator-car" id="elevator-car">
+                    <div class="elevator-door left-door"></div>
+                    <div class="elevator-door right-door"></div>
+                    <span id="elevator-floor-indicator">T</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <h2>Painel do Elevador</h2>
+            <div class="floor-buttons-panel">
+                <button class="floor-btn" data-target="3">3</button>
+                <button class="floor-btn" data-target="2">2</button>
+                <button class="floor-btn" data-target="1">1</button>
+                <button class="floor-btn" data-target="0">T</button>
+            </div>
+            <div class="status-display">
+                <p>Estado Atual do Elevador: <span id="afd-state">Parado no Térreo, Portas Abertas</span></p>
+                <p>Andar Atual: <span id="current-floor-display">Térreo</span></p>
+            </div>
+            <div id="afd-visualizer-container">
+                 <div id="afd-visualizer"></div> <!-- Container para a visualização do AFD -->
+            </div>
+        </div>
+    </div>
+
+    <script src="mecanica.js"></script>
+</body>
+</html>
